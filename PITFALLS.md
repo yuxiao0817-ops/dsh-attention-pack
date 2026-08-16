@@ -4,6 +4,22 @@
 
 ---
 
+## 2026-08-16 · 【DSH 上游 bug 调查】ask_user_question 多题卡片中途被 abort
+
+**现象**：两题卡片，老板点完第一题选项（自动进第二题）、还没点第二题，整卡消失，工具报 `ASK_ABORTED: ask_user_question was aborted before the user answered`。
+
+**调查结论（证据链）**：
+1. 宿主 `dsh-user-questions` 只在 `request.signal.aborted` 时抛 ASK_ABORTED；signal = 工具执行信号（`dsh-tool-ask-user` 直接透传 `exec.signal`）。
+2. `exec.signal` 由 agent loop 的 phase abort 触发（`dsh-agent-loop` cancel/teardown 路径）；GUI「停止」按钮是 cancel 的一个入口，但老板没点。
+3. **关键时刻证据**：abort 发生的那一分钟（15:48:48），`~/.dsh/sessions/` 里新建了会话记录 `session-096c1caf` —— 提问挂起期间会话/运行时被重建，旧回合被 teardown → 提问被 abort。
+4. 卡片自身代码无此 bug：单选点选项只 `choose()` + 自动 `setIndex+1`，不提交不取消（`dsh-client-ui-user-questions`）。
+
+**未确认**：会话重建的触发源（GUI 新会话？运行时重启？）。**待办**：复现 = 提问卡片挂起时观察是否重建会话；建议作为 issue 反馈 deepseek-harness 上游（对外动作，先问老板）。
+
+**防护（本插件无关但记录）**：给老板的提问一次只发一题，避免中途重建丢答案；长问题拆多个单题卡片。
+
+---
+
 ## 2026-08-16 · jobs 没有投影，只能走 React slot
 
 **现象**：想用纯 DOM（mobile-sidebar-fix 同款）订阅任务数据失败。
