@@ -4,6 +4,14 @@
 
 ---
 
+## 2026-08-16 · ntfy 通道：HTTP 头传中文/emoji 标题 → fetch 抛 ByteString 错误
+
+**现象**：v2 测试里 bark 三条全到，ntfy 一条没到；宿主日志：`TypeError: Cannot convert argument to a ByteString because the character at index 0 has a value of 9989 which is greater than 255`（✅=9989）。
+
+**根因**：ntfy 第一版把标题放 HTTP 头（Title/Tags/Priority），Node/undici fetch 拒绝非 ASCII 头值——中文/emoji 必炸。
+
+**防护**：ntfy 改走 JSON body（`{title, message, tags: [], priority}`，官方支持）；bark 本就 JSON body 所以没事。教训：**任何含用户可见文案的通道，payload 一律走 body 不走 header**。测试脚本 `scripts/test-host-push.mjs`（stub ctx + 本地 mock，6/6）。
+
 ## 2026-08-16 · 宿主端（node half）代码改动必须重启应用才生效
 
 **现象**：v2 推送写进 `lib/index.js` 后，宿主日志无任何输出、mock 推送无记录——客户端 bundle 是热加载的（页面刷新即新代码），**宿主 node half 是启动时加载的**。
