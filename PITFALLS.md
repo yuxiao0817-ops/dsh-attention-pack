@@ -1,4 +1,4 @@
-# PITFALLS.md — P007 dsh-attention-pack 踩坑日志
+# PITFALLS.md — P009 dsh-attention-pack 踩坑日志
 
 > 最新在上。agent 出错后自己追加，不用等老板说。
 

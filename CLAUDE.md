@@ -1,4 +1,4 @@
-# CLAUDE.md — P007 dsh-attention-pack
+# CLAUDE.md — P009 dsh-attention-pack
 
 DSH（DeepSeek Harness）客户端插件项目：后台任务完成提醒 + 迷你任务条。
 

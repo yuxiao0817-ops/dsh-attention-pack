@@ -1,4 +1,4 @@
-# OVERVIEW.md — P007 dsh-attention-pack（注意力套装）
+# OVERVIEW.md — P009 dsh-attention-pack（注意力套装）
 
 > 一句话：DSH 后台任务「干完了叫你」——完成提醒（系统通知 + 提示音 + 标题闪烁）+ 常驻迷你任务条。
 > 2026-08-16 新建（本机 MBA 创建；worker 登记册同步见 PROJECTS.md 备注）

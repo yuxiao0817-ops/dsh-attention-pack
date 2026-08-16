@@ -1,4 +1,4 @@
-# AGENTS.md — P007 dsh-attention-pack
+# AGENTS.md — P009 dsh-attention-pack
 
 本目录是 DSH 客户端插件「注意力套装」的独立 git 仓库（对外开源目标）。
 
