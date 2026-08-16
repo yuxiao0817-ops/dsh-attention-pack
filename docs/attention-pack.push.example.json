@@ -1,0 +1,6 @@
+{
+  "channels": [
+    { "type": "bark", "key": "你的BarkKey（iPhone 装 Bark 后打开即见）" },
+    { "type": "ntfy", "topic": "dsh-attention（任意起名，越随机越私密）" }
+  ]
+}

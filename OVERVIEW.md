@@ -40,3 +40,11 @@ DSH Web GUI 的交互短板：长任务跑的时候用户不知道进行到哪�
 - [ ] 老板肉眼复核（刷新 GUI 页面看状态条/提醒的交互手感；声音/系统通知需真机确认）
 - [ ] 老板提供微信/支付宝收款码图 → `docs/` 同名覆盖 → push 一次即生效
 - [x] 回查 ask_user_question 多题卡片中断 bug → 结论见 PITFALLS.md（会话重建导致 abort，触发源待复现）
+
+## v2（手机锁屏推送，进行中）
+
+- [x] 宿主端推送引擎（`lib/index.js`）：`ctx.jobs.onJobDone` 监听 → Bark/ntfy 双通道 → 失败识别同客户端语义 → 日志可观测 → 配置 `~/.dsh/attention-pack.push.json`
+- [x] README v2 章节（设备覆盖表 + 配置 1 分钟指引）+ 配置模板 `docs/attention-pack.push.example.json`
+- [ ] **实测验收**：需老板重启 DSH 应用（宿主 node half 启动时加载）→ 本地 mock 推送服务验证 payload（已完成：mock 服务 + 测试配置就位，等重启）
+- [ ] 老板真机配置：iPhone 装 Bark / 安卓装 ntfy → 填 key → 真实推送验证
+- [ ] 提交推送 GitHub

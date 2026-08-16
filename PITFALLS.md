@@ -4,6 +4,14 @@
 
 ---
 
+## 2026-08-16 · 宿主端（node half）代码改动必须重启应用才生效
+
+**现象**：v2 推送写进 `lib/index.js` 后，宿主日志无任何输出、mock 推送无记录——客户端 bundle 是热加载的（页面刷新即新代码），**宿主 node half 是启动时加载的**。
+
+**根因**：cordis loader 在启动时 import 插件 node 入口；改文件不重跑。
+
+**防护**：改 `lib/index.js` → 必须重启 Harness.app（老板操作，会话持久不受影响）→ 用 `~/.dsh/attention-pack.push.log` 是否出现 "host push: loaded" 判断是否生效。客户端（`lib/client.js`）不受此限，刷新页面即可。
+
 ## 2026-08-16 · 【事故】宿主运行中改插件真实路径 → 插件包 404、页面报 "Failed to load plugins"
 
 **现象**：项目改号 P007→P009（目录改名）后，刷新页面出现 `Failed to load plugins: bundle script /plugins/dsh-attention-pack/client.js failed to load`；同 rev/无 rev 全部 404，其他插件（mobile-sidebar-fix/jobs）正常 200。
