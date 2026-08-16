@@ -1,0 +1,28 @@
+{
+  "name": "dsh-attention-pack",
+  "version": "0.1.0",
+  "description": "注意力套装：后台任务完成提醒（系统通知 + 提示音 + 标签页标题闪烁）+ 常驻迷你任务条。Attention pack for DeepSeek Harness: completion alerts and a live mini task bar for background jobs.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "client": {
+      "platform": "web",
+      "inject": [],
+      "immediately": true
+    }
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "plugin",
+    "notification",
+    "attention",
+    "background-jobs"
+  ],
+  "license": "MIT"
+}
