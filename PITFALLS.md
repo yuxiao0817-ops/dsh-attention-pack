@@ -4,6 +4,14 @@
 
 ---
 
+## 2026-08-16 · notifyOn 开关"设置了但没用"——系统通知永远关不掉
+
+**现象**：🔔 按钮点了、localStorage 也写了，但系统通知照发。
+
+**根因**：`notifyOn` state 只在按钮 UI 上被读取，从没传给 `useCompletionAlerts`——`systemNotify` 无条件调用。属于"state 写了没人读"的静默死代码。
+
+**防护**：发布前通读全文，**逐个 state 交叉核对使用点**（写了→有没有人读）；这类 bug SSR 测试也抓不到（它只验证渲染）。已修复：notifyOn 传入 effect 并门控 systemNotify。
+
 ## 2026-08-16 · wire 语义：非零退出码的任务状态是 "completed" 不是 "failed"
 
 **现象**：`exit 1` 的任务完成时插件闪了 ✓（成功色）。
