@@ -4,6 +4,25 @@
 
 ---
 
+## 2026-08-16 · 【血泪】isLive(prev) 传了状态字符串——转变检测永远不触发
+
+**现象**：状态条/计时/标题计数全部正常，但"任务完成→提醒"永远不触发；SSR 自测 6/6 全过也没抓到。
+
+**根因**：`seen` Map 里存的是**状态字符串**（如 `"running"`），检测时却调 `isLive(prev)`——它接收**任务对象**、内部访问 `job.status`；`"running".status` 是 `undefined` → 条件恒假。SSR 测试抓不到是因为 **effect 在 renderToString 里根本不执行**——渲染正确 ≠ 副作用正确。
+
+**防护**：
+1. 状态字符串判活直接用集合：`LIVE_STATUSES.has(prev)`；
+2. **凡是 effect 里的逻辑，必须用真浏览器验证**——本项目的 CDP 验证法（headless Chrome + 埋点计数器 + 真实后台任务）已写成套路，见 `docs/` 或 OVERVIEW；
+3. 埋点计数器（renders/effectRuns/transitions）证明"渲染在跑、effect 在跑、检测没触发"，是定位这类 bug 最快路径。
+
+## 2026-08-16 · 完成闪烁后标题前缀有 2 秒空窗
+
+**现象**：闪烁恢复后 "(n) 运行中" 前缀消失约 2 秒才回来。
+
+**根因**：闪烁恢复定时器调 `refreshTitle()` 没传 live 计数，而计数只有 1 秒 tick 才重新写入。
+
+**防护**：模块级 `lastLiveCount`，`refreshTitle` 记住最近一次计数，恢复时用它。
+
 ## 2026-08-16 · 【DSH 上游 bug 调查】ask_user_question 多题卡片中途被 abort
 
 **现象**：两题卡片，老板点完第一题选项（自动进第二题）、还没点第二题，整卡消失，工具报 `ASK_ABORTED: ask_user_question was aborted before the user answered`。
