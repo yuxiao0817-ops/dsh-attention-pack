@@ -34,8 +34,9 @@ DSH Web GUI 的交互短板：长任务跑的时候用户不知道进行到哪�
 
 - [x] 插件本体（提醒 + 状态条）
 - [x] 服务端装载验证（manifest + bundle 字节一致 + style tag；SSR 自测 6/6）
-- [x] **真浏览器全链路验收**（headless Chrome + CDP 绑定真实会话 + 真实后台任务）：状态条渲染/计时跳动/标题计数前缀/完成转变检测/行高亮 3s/标题闪烁 6s 并干净恢复/去重不误报——全部亲见；修复了 isLive 类型错误与闪烁恢复空窗（见 PITFALLS）
-- [x] README 中英双语 + 真实效果截图（docs/screenshot-desktop.png）+ 收款码占位
-- [ ] 老板肉眼复核（刷新 GUI 页面看状态条/提醒的交互手感）
-- [ ] 发布 GitHub（需确认账号/仓库名）
+- [x] **真浏览器全链路验收**（headless Chrome + CDP 绑定真实会话 + 真实后台任务）：状态条渲染/计时跳动/标题计数前缀/完成转变检测/行高亮 3s/标题闪烁 6s 并干净恢复/去重不误报/失败红色提示/手机通栏/静音收起按钮——全部亲见；修了 isLive 类型错误、闪烁恢复空窗、notifyOn 未接线、改号 404 事故（见 PITFALLS）
+- [x] README 中英双语 + 桌面/手机真实截图 + 收款码占位
+- [x] **发布 GitHub（2026-08-16 完成）**：`https://github.com/yuxiao0817-ops/dsh-attention-pack`（PUBLIC，12 commits，页面渲染已验证）
+- [ ] 老板肉眼复核（刷新 GUI 页面看状态条/提醒的交互手感；声音/系统通知需真机确认）
+- [ ] 老板提供微信/支付宝收款码图 → `docs/` 同名覆盖 → push 一次即生效
 - [x] 回查 ask_user_question 多题卡片中断 bug → 结论见 PITFALLS.md（会话重建导致 abort，触发源待复现）

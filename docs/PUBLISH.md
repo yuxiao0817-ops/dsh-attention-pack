@@ -1,43 +1,27 @@
-# PUBLISH.md — 发布清单（老板确认后一次性执行）
+# PUBLISH.md — 发布记录（2026-08-16 已完成）
 
-> 目标：GitHub 公开仓库 `dsh-attention-pack`（MIT），README 带微信/支付宝咖啡码。
-> 本文件是操作清单；执行前每步口头跟老板确认一次即可。
+> 目标达成：GitHub 公开仓库 `dsh-attention-pack`（MIT），README 带微信/支付宝咖啡码占位。
+> **已发布**：https://github.com/yuxiao0817-ops/dsh-attention-pack（PUBLIC，main 分支，12 commits）
 
-## 前置（老板提供）
+## 实际执行记录（2026-08-16）
 
-- [ ] 确认 GitHub 账号（本机 git 身份是 `yuxiao0817`）与仓库名（默认 `dsh-attention-pack`）
-- [ ] 微信收款码图 → `docs/qrcode-wechat.png`（同名覆盖占位图）
-- [ ] 支付宝收款码图 → `docs/qrcode-alipay.png`（同名覆盖占位图）
+1. 老板授权账号：**yuxiao0817-ops**（非 git 配置里的 yuxiao0817——以实际授权为准）
+2. gh 2.97.0 手动安装至 `~/bin/gh`（本机无 brew）
+3. `gh auth login --web`（设备码流程，老板浏览器授权）
+4. `gh repo create dsh-attention-pack --public --source=. --remote=origin` ✓
+5. remote 强制 HTTPS：`git remote set-url origin https://github.com/yuxiao0817-ops/dsh-attention-pack.git`
+6. `git push -u origin main` ✓
+7. 验收：headless Chrome 打开仓库页——README 渲染（注意力套装/请我喝杯咖啡/截图引用）、文件树（LICENSE/README/lib/docs/package.json）、visibility=PUBLIC，全部亲见
 
-## 发布步骤（老板说"发"之后）
+## 遗留（等老板，随时可做）
 
-```bash
-cd ~/workspace/projects/P009-dsh-attention-pack
-# 0. 最终自查（已全过：9 commits / SSR 6-6 / 真浏览器全链路 / 敏感扫描干净）
-git status --short          # 必须为空
-git log --oneline | head    # 核对提交
+- [ ] 微信/支付宝收款码图 → `docs/qrcode-wechat.png`、`docs/qrcode-alipay.png` 同名覆盖 → `git push` 一次即上线
+- [ ] 老板肉眼复核本地 GUI（刷新页面看状态条；声音/系统通知需真机确认）
+- [ ] **宿主重启后删除兼容链接** `~/workspace/projects/P007-dsh-attention-pack`（改号事故的保活链接，见 PITFALLS）
+- [ ] （可选）deepseek-harness 上游提 issue：ask_user_question 多题卡片中断 bug（PITFALLS 有证据链）
+- [ ] （可选）npm 发布 `dsh-attention-pack`（README 安装段可简化成一条命令）
 
-# 1. 创建 GitHub 仓库（gh 未装，先装：brew install gh && gh auth login）
-gh repo create dsh-attention-pack --public --source=. --remote=origin --push
+## 红线（仍然有效）
 
-# 2. 本地 git 身份与 GitHub 一致（若 gh 登录账号 ≠ yuxiao0817 则改）
-git config user.name "yuxiao0817"
-git config user.email "yuxiao0817@gmail.com"
-
-# 3. 推送
-git push -u origin main
-```
-
-## 发布后
-
-- [ ] 打开 GitHub 仓库页，亲眼核对：README 渲染（截图/二维码显示）、LICENSE、文件树
-- [ ] 手机打开仓库页，扫码测试两张收款码是否可用
-- [ ] 同步更新 `docs/README.md` 占位说明（标记已替换）
-- [ ] **宿主重启后删除兼容链接** `~/workspace/projects/P007-dsh-attention-pack`（改号时宿主缓存了旧真实路径，兼容链接保活；重启后即无用，见 PITFALLS）
-- [ ] （可选）在 deepseek-harness 上游提 issue：ask_user_question 多题卡片中断 bug（PITFALLS 有完整证据链）
-- [ ] （可选）npm 发布 `dsh-attention-pack`（`npm publish`，需 npm 账号；README 安装段会简化成一条命令）
-
-## 红线
-
-- 发布是对外动作：老板明确说"发"才执行；发布后不可删除重来（会丢 star/收藏）
-- 仓库里无任何密钥（已扫描）；收款码是个人收款用途，确认老板本人提供
+- 发布后删除重来会丢 star/收藏——不要删仓库
+- 收款码是个人收款用途，务必老板本人提供
