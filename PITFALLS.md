@@ -4,6 +4,14 @@
 
 ---
 
+## 2026-08-16 · 真实 ntfy.sh 验证：订阅要等推送落地，别一开枪就看靶
+
+**现象**：插件对真实 ntfy.sh 的推送日志 ok=true，但脚本立刻订阅 `poll=1&since=all` 返回 0 条——误判失败。
+
+**根因**：ntfy.sh 从本机网络约 1-2s 延迟；推送（异步 fetch）与订阅几乎同时发出，订阅先到、消息还没缓存。用 curl 稍后订阅，两条消息都在（✅❌/exit code/tags/priority 全部正确）。
+
+**防护**：真实通道验证 = 推送后**稍等再订阅**（或轮询重试）；脚本里若做端到端断言，先 sleep 2-3s。结论：插件对公网 ntfy 的递送本身正确。
+
 ## 2026-08-16 · ntfy 通道：HTTP 头传中文/emoji 标题 → fetch 抛 ByteString 错误
 
 **现象**：v2 测试里 bark 三条全到，ntfy 一条没到；宿主日志：`TypeError: Cannot convert argument to a ByteString because the character at index 0 has a value of 9989 which is greater than 255`（✅=9989）。
