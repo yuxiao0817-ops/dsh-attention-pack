@@ -4,6 +4,14 @@
 
 ---
 
+## 2026-08-16 · wire 语义：非零退出码的任务状态是 "completed" 不是 "failed"
+
+**现象**：`exit 1` 的任务完成时插件闪了 ✓（成功色）。
+
+**根因**：DSH 任务 wire 只在执行器契约违约（promise reject）时报 `failed`；非零退出码照常报 `completed`，退出码放在 detail（`exit code: 3`）里。
+
+**防护**：插件加了 `jobFailed()`：解析 detail 的 `exit code: N`（N≠0）→ 按失败处理（✗ 闪烁/红色/失败音）；wire 原生 failed/killed 也归失败。README 如实说明。
+
 ## 2026-08-16 · 【血泪】isLive(prev) 传了状态字符串——转变检测永远不触发
 
 **现象**：状态条/计时/标题计数全部正常，但"任务完成→提醒"永远不触发；SSR 自测 6/6 全过也没抓到。

@@ -58,6 +58,7 @@ ln -s "$PWD/dsh-attention-pack" ~/.dsh/profiles/web/node_modules/dsh-attention-p
 ## 已知限制（如实说）
 
 - 任务只有状态摘要（`detail`），没有实时日志流——状态条显示「状态 + 计时」，不显示输出尾巴；
+- **失败识别**：DSH 任务数据里非零退出码仍算 `completed`（退出码在 `detail` 里）——本插件会解析 `exit code: N`，非零按失败提醒（✗ 红闪），与 DSH 原生 `failed/killed` 一视同仁；
 - 同一个会话开多个标签页，每个标签页都会提醒一次；
 - iOS Safari 无系统通知，靠页面内闪动 + 标题闪烁；
 - 本插件只关心**后台任务**（jobs）；agent 单回合内的工具调用不提醒（那是轨迹时间线的领域）。
