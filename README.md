@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-![效果截图占位：桌面端迷你任务条](docs/screenshot-desktop.png)
+![桌面端：右下角迷你任务条，实时显示后台任务状态与计时](docs/screenshot-desktop.png)
 
 ---
 
@@ -52,6 +52,8 @@ ln -s "$PWD/dsh-attention-pack" ~/.dsh/profiles/web/node_modules/dsh-attention-p
 2. 任务运行期间，右下角出现状态条，计时走动；
 3. 任务结束：标题闪烁 + 提示音 + 系统通知（第一次会弹浏览器权限询问，点允许）；
 4. 状态条右上角：🔊 开关提示音，🔔 开关系统通知，✕ 收起状态条（提醒不关）。
+
+![手机端：状态条自动变通栏，随时可见](docs/screenshot-mobile.png)
 
 设置存于 `localStorage`（键 `dsh-attention-pack:settings`），只在本浏览器生效。
 

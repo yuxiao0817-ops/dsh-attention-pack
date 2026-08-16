@@ -33,6 +33,7 @@ git push -u origin main
 - [ ] 打开 GitHub 仓库页，亲眼核对：README 渲染（截图/二维码显示）、LICENSE、文件树
 - [ ] 手机打开仓库页，扫码测试两张收款码是否可用
 - [ ] 同步更新 `docs/README.md` 占位说明（标记已替换）
+- [ ] **宿主重启后删除兼容链接** `~/workspace/projects/P007-dsh-attention-pack`（改号时宿主缓存了旧真实路径，兼容链接保活；重启后即无用，见 PITFALLS）
 - [ ] （可选）在 deepseek-harness 上游提 issue：ask_user_question 多题卡片中断 bug（PITFALLS 有完整证据链）
 - [ ] （可选）npm 发布 `dsh-attention-pack`（`npm publish`，需 npm 账号；README 安装段会简化成一条命令）
 

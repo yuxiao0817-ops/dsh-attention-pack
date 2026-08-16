@@ -4,6 +4,15 @@
 
 ---
 
+## 2026-08-16 · 【事故】宿主运行中改插件真实路径 → 插件包 404、页面报 "Failed to load plugins"
+
+**现象**：项目改号 P007→P009（目录改名）后，刷新页面出现 `Failed to load plugins: bundle script /plugins/dsh-attention-pack/client.js failed to load`；同 rev/无 rev 全部 404，其他插件（mobile-sidebar-fix/jobs）正常 200。
+
+**根因**：Harness 宿主启动时把插件 id 解析成**真实路径**（symlink 指向的 P007 目录）并缓存；目录改名后旧真实路径不存在 → 静态服务 404。manifest 仍列出插件（配置未变），所以表面"在"，实际"死"。
+
+**防护（已落地）**：在旧路径放兼容符号链接 `~/workspace/projects/P007-dsh-attention-pack → P009-dsh-attention-pack`，宿主重启前保持存活（已验证 200 + 字节一致 + 页面恢复）。**宿主重启后即可删除该兼容链接**（重启会重新解析真实路径）。
+**教训**：改插件真实路径 = 需要重启宿主；动手前先确认宿主是否在跑。
+
 ## 2026-08-16 · notifyOn 开关"设置了但没用"——系统通知永远关不掉
 
 **现象**：🔔 按钮点了、localStorage 也写了，但系统通知照发。
