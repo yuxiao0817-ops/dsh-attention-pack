@@ -34,7 +34,8 @@ DSH Web GUI 的交互短板：长任务跑的时候用户不知道进行到哪�
 
 - [x] 插件本体（提醒 + 状态条）
 - [x] 服务端装载验证（manifest + bundle 字节一致 + style tag；SSR 自测 6/6）
-- [ ] 实测验收（真实后台任务）——**等老板刷新页面后执行**
-- [ ] README 中英双语 + 截图 + 咖啡二维码（微信/支付宝，老板供图）——README 已写，待补真图
+- [x] **真浏览器全链路验收**（headless Chrome + CDP 绑定真实会话 + 真实后台任务）：状态条渲染/计时跳动/标题计数前缀/完成转变检测/行高亮 3s/标题闪烁 6s 并干净恢复/去重不误报——全部亲见；修复了 isLive 类型错误与闪烁恢复空窗（见 PITFALLS）
+- [x] README 中英双语 + 真实效果截图（docs/screenshot-desktop.png）+ 收款码占位
+- [ ] 老板肉眼复核（刷新 GUI 页面看状态条/提醒的交互手感）
 - [ ] 发布 GitHub（需确认账号/仓库名）
 - [x] 回查 ask_user_question 多题卡片中断 bug → 结论见 PITFALLS.md（会话重建导致 abort，触发源待复现）
